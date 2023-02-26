@@ -12,21 +12,26 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Outfit.belongsTo(models.Profile, { foreignKey: 'profileId' })
-      
     }
   }
   Outfit.init({
-    photo: DataTypes.STRING,
-    description: DataTypes.STRING,
+    photo: {
+      type:DataTypes.STRING,
+    },
+    description: {
+      type: DataTypes.STRING,
+    },
     profileId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onDelete: 'CASCADE',
+      onDelete: 'CASCADE',	
       references: {
         model: 'Profiles',
         key: 'id',
       },
     },
+
+    
   }, {
     sequelize,
     modelName: 'Outfit',
