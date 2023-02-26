@@ -18,7 +18,7 @@ const cloudinary = require('cloudinary').v2
     try {
       const outfits = await Outfit.findAll({
         // order: [['createdAt', 'DESC'], ['comment', 'createdAt', 'ASC']],
-        // include: [{model: Comment, as: 'comment'}]
+        include: [{model: Comment, as: 'comments'}]
         
       })
       res.status(200).json(outfits)
