@@ -12,6 +12,7 @@ router.use(decodeUserFromToken)
 router.post('/', checkAuth, outfitsCtrl.create)
 router.put('/:id',checkAuth, outfitsCtrl.update)
 router.delete('/:id',checkAuth,outfitsCtrl.delete)
+router.put('/:id/add-photo', checkAuth, outfitsCtrl.addPhoto)
 
 
 module.exports = router

@@ -1,5 +1,7 @@
-const { Outfit } = require('../models')
+const { Outfit,Comment, Profile } = require('../models')
 const outfit = require('../models/outfit')
+const comment = require('../models/comment')
+const cloudinary = require('cloudinary').v2
 
  async function create(req, res) {
     try {
@@ -15,8 +17,9 @@ const outfit = require('../models/outfit')
   async function index(req, res) {
     try {
       const outfits = await Outfit.findAll({
-        order: [['createdAt', 'DESC']], //['comment', 'createdAt', 'ASC']],
+        // order: [['createdAt', 'DESC'], ['comment', 'createdAt', 'ASC']],
         // include: [{model: Comment, as: 'comment'}]
+        
       })
       res.status(200).json(outfits)
     } catch (error) {
@@ -44,11 +47,28 @@ const outfit = require('../models/outfit')
     }
   }
   
+  async function addPhoto(req, res) {
+    try {
+      const imageFile = req.files.photo.path
+      const outfit = await Outfit.findByPk(req.params.id)
+      const image = await cloudinary.uploader.upload(
+        imageFile, 
+        { tags: `${req.user.email}` }
+      )
+      outfit.photo = image.url
+      await outfit.save()
+      res.status(201).json(outfit.photo)
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ err: error })
+    }
+  }
   
   module.exports = {
     create,
     index,
     update,
     delete: deleteOutfit,
+    addPhoto
   }
 
