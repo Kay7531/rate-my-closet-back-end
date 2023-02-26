@@ -10,6 +10,8 @@ router.get('/',outfitsCtrl.index)
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 router.post('/', checkAuth, outfitsCtrl.create)
+router.put('/:id',checkAuth, outfitsCtrl.update)
+router.delete('/:id',checkAuth,outfitsCtrl.delete)
 
 
 module.exports = router
