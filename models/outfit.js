@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Outfit.belongsTo(models.Profile, { foreignKey: 'profileId' })
+      
     }
   }
   Outfit.init({
