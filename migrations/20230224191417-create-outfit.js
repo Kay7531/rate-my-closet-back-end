@@ -13,8 +13,15 @@ module.exports = {
         type: Sequelize.STRING
       },
       profileId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Profiles',
+          key: 'id',
+        },
       },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

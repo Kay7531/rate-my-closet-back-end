@@ -10,13 +10,34 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       content: {
-        type: Sequelize.STRING
+        type:Sequelize.STRING,
+        allowNull: false,
+      },
+      rating: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+          min: 0,
+          max: 5,
+        },
       },
       profileId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Profiles',
+          key: 'id',
+        },
       },
       outfitId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Outfit',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,

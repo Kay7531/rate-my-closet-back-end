@@ -14,10 +14,37 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Comment.init({
-    content: DataTypes.STRING,
-    profileId: DataTypes.INTEGER,
-    outfitId: DataTypes.INTEGER
-  }, {
+    content: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    rating: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+				max: 5,
+      },
+    },
+    profileId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Profiles',
+        key: 'id',
+      },
+    },
+    outfitId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Outfit',
+        key: 'id',
+      },
+    },
+   }, {
     sequelize,
     modelName: 'Comment',
   });
